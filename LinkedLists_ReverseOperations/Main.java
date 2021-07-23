@@ -19,9 +19,39 @@ class Main {
     // Add any helper functions you may need here
 
 
+    Node reverseSubList(Node head){
+        Node previous = null;
+        Node current = head;
+
+        while (current != null && current.data % 2 == 0){
+            Node temp = current.next;
+            current.next = previous;
+
+            previous = current;
+            current = temp;
+        }
+        head.next = current;
+        return previous;
+    }
+
     Node reverse(Node head) {
         // Write your code here
-        return head;
+        Node temporary = new Node(0);
+        temporary.next = head;
+
+        Node previous = temporary;
+        Node current = head;
+
+        while (current != null){
+            if (current.data % 2 == 0){
+                previous.next = reverseSubList(current);
+            }
+
+            previous = current;
+            current = current.next;
+        }
+
+        return temporary.next;
     }
 
     // These are the tests we use to determine if the solution is correct.
