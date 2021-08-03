@@ -12,9 +12,26 @@ class Main {
 
     int getTotalTime(int[] arr) {
         // Write your code here
-        // [4, 2, 1, 3]
+        Arrays.sort(arr, 0, arr.length);
 
-       return 0;
+        int[] reversedArr = new int[arr.length];
+        int j = arr.length;
+        int currPenalty = 0;
+        int totalPenalty = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            reversedArr[j - 1] = arr[i];
+            j = j - 1;
+        }
+
+        for (int i = 0; i < reversedArr.length - 1; i++){
+            currPenalty = reversedArr[i] + reversedArr[i+1];
+            reversedArr[i] = 0;
+            reversedArr[i+1] = currPenalty;
+            totalPenalty = totalPenalty + currPenalty;
+        }
+
+       return totalPenalty;
     }
 
     // These are the tests we use to determine if the solution is correct.
@@ -49,6 +66,16 @@ class Main {
         int expected_2 = 88;
         int output_2 = getTotalTime(arr_2);
         check(expected_2, output_2);
+
+        int[] arr_3 = {8, 7, 1, 2, 9, 3};
+        int expected_3 = 127;
+        int output_3 = getTotalTime(arr_3);
+        check(expected_3, output_3);
+
+        int[] arr_4 = {7, 8, 1, 7, 8, 7};
+        int expected_4 = 144;
+        int output_4 = getTotalTime(arr_4);
+        check(expected_4, output_4);
 
         // Add your own test cases here
 
