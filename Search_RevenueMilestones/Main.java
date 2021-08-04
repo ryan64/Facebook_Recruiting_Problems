@@ -7,13 +7,41 @@ import java.util.*;
 class RevenueMilestones {
 
     // Add any helper functions you may need here
+    private int search(int[] rev, int val) {
+        int left = 0;
+        int right = rev.length - 1;
 
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (val == rev[mid]) {
+                return mid+1;
+            }else if (val > rev[mid]) {
+                left = mid+1;
+            } else {
+                right = mid;
+            }
+        }
 
-    int[] getMilestoneDays(int[] revenues, int[] milestones) {
-        return revenues;
-
+        return left+1;
     }
 
+    int[] getMilestoneDays(int[] revenues, int[] milestones) {
+        // Write your code here
+        int[] totalRevenuePerDay = new int[revenues.length];
+        int[] daysMilestonesAchieved = new int[milestones.length];
+        totalRevenuePerDay[0] = revenues[0];
+
+        for (int i = 1; i < revenues.length; i++){
+            totalRevenuePerDay[i] = totalRevenuePerDay[i-1] + revenues[i];
+        }
+
+        for (int i = 0; i < milestones.length; i++){
+            daysMilestonesAchieved[i] = search(totalRevenuePerDay, milestones[i]);
+        }
+
+        return daysMilestonesAchieved;
+    }
+    
     // These are the tests we use to determine if the solution is correct.
     // You can add your own at the bottom.
     int test_case_number = 1;
@@ -66,6 +94,11 @@ class RevenueMilestones {
         check(expected_2, output_2);
 
         // Add your own test cases here
+        int revenues_3[] = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
+        int milestones_3[] = {100, 200, 500};
+        int expected_3[] = {4, 6, 10};
+        int[] output_3 = getMilestoneDays(revenues_3, milestones_3);
+        check(expected_3, output_3);
 
     }
 
