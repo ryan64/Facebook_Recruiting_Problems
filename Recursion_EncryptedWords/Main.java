@@ -11,8 +11,28 @@ class Main {
 
 
     String findEncryptedWord(String s) {
-        // Write your code here
-        return "";
+
+        String r = "";
+        int mid = 0;
+
+        mid = s.length() / 2;
+
+        if (s.length() % 2 == 0)
+            mid = mid - 1;
+
+        r = r + s.substring(mid, mid + 1);
+
+        if (mid > 0) {
+            String ls = s.substring(0, mid);
+            r = r + findEncryptedWord(ls);
+        }
+
+        if (mid < s.length() - 1) {
+            String rs = s.substring(mid + 1, s.length());
+            r = r + findEncryptedWord(rs);;
+        }
+
+        return r;
     }
 
     // These are the tests we use to determine if the solution is correct.
@@ -48,6 +68,11 @@ class Main {
         String expected_2 = "bacd";
         String output_2 = findEncryptedWord(s_2);
         check(expected_2, output_2);
+
+        String s_3 = "abcxcba";
+        String expected_3 = "xbacbca";
+        String output_3 = findEncryptedWord(s_3);
+        check(expected_3, output_3);
 
         // Add your own test cases here
 

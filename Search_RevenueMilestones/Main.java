@@ -41,7 +41,7 @@ class RevenueMilestones {
 
         return daysMilestonesAchieved;
     }
-    
+
     // These are the tests we use to determine if the solution is correct.
     // You can add your own at the bottom.
     int test_case_number = 1;
