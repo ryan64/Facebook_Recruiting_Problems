@@ -8,11 +8,26 @@ import java.util.*;
 class PairSums {
 
     // Add any helper functions you may need here
-
-
     int numberOfWays(int[] arr, int k) {
-        // Write your code here
-        return 0;
+        Hashtable<Integer, Integer> instances = new Hashtable<>();
+        int count = 0;
+
+        for (int i = 0; i < arr.length; i++){
+            if (!instances.containsKey(arr[i])){
+                instances.put(arr[i], 0);
+            }
+            instances.put(arr[i], instances.get(arr[i]) + 1);
+        }
+
+        for (int i = 0; i < arr.length; i++){
+            if (instances.get(k - arr[i]) != null){
+                count = count + instances.get(k - arr[i]);
+            }
+            if (k - arr[i] == arr[i]){
+                count = count - 1;
+            }
+        }
+        return count / 2;
     }
 
     // These are the tests we use to determine if the solution is correct.
