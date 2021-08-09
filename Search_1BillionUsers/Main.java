@@ -8,11 +8,29 @@ import java.util.*;
 class Main {
 
     // Add any helper functions you may need here
+    int billion = 1000000000;
 
+    public boolean growthRateCalc(float[] growthRates, int mid){
+        double totalUsers = 0;
+        for (int i = 0; i < growthRates.length; i++){
+            totalUsers = totalUsers + Math.pow(growthRates[i], mid);
+        }
+        return (int) totalUsers >= billion;
+    }
 
     int getBillionUsersDay(float[] growthRates) {
-        // Write your code here
-        return 0;
+        int low = 1;
+        int high = Integer.MAX_VALUE;
+        while (low < high){
+            int mid = low + (high - low) / 2;
+            if (growthRateCalc(growthRates, mid)){
+                high = mid;
+            } else {
+                low = mid + 1;
+            }
+        }
+
+        return low;
     }
 
     // These are the tests we use to determine if the solution is correct.
